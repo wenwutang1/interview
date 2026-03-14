@@ -1,2 +1,2 @@
-# interview
-111
+## how to run
+[ ] make run
