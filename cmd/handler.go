@@ -64,7 +64,14 @@ func transferWallent() gin.HandlerFunc {
 			return
 		}
 
-		GlobalWalletCollect.Transfer(req.WalletFromId, req.WallentToId, req.Amount)
+		err := GlobalWalletCollect.Transfer(req.WalletFromId, req.WallentToId, req.Amount)
+		if err != nil {
+			c.JSON(http.StatusOK, map[string]any{
+				"code": http.StatusTooManyRequests,
+				"msg":  "server busy",
+			})
+			return
+		}
 
 		c.JSON(http.StatusOK, map[string]any{
 			"code": http.StatusOK,
